@@ -1,5 +1,15 @@
 {
+  "name": "pharmacompare",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "npm run backend && npm run frontend",      
+    "backend": "npm --prefix pharma-compare-backend start",  
+    "frontend": "npm --prefix pharma-compare-frontend run dev", 
+    "install-all": "npm install --prefix pharma-compare-backend && npm install --prefix pharma-compare-frontend",
+    "build": "npm --prefix pharma-compare-frontend run build" 
+  },
   "dependencies": {
     "jsonwebtoken": "^9.0.2"
-  }
+  },
+  "devDependencies": {}
 }
