@@ -1,3 +1,6 @@
+## Project Link
+You can access the live version of the project at: https://pharmacompare.onrender.com
+
 PharmaCompare: Medicine Price Comparison Platform
 PharmaCompare is a web application designed to help users compare the prices of medicines across different pharmacies. Built using the MERN stack (MongoDB, Express.js, React, and Node.js), it provides an easy-to-use platform where users can search for medicines, compare prices, and save their favorite medicines.
 
