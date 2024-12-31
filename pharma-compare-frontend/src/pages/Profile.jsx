@@ -16,13 +16,13 @@ const Profile = () => {
       const token = localStorage.getItem("token");
 
       // Fetch user details
-      const userResponse = await axios.get("http://localhost:5001/users/profile", {
+      const userResponse = await axios.get(`${import.meta.env.VITE_API_URL}/users/profile`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setUser(userResponse.data);
 
       // Fetch favorites
-      const favoritesResponse = await axios.get("http://localhost:5001/users/favorites", {
+      const favoritesResponse = await axios.get(`${import.meta.env.VITE_API_URL}/users/favorites`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFavorites(favoritesResponse.data);
@@ -39,7 +39,7 @@ const Profile = () => {
   const handleRemoveFavorite = async (medicineId) => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5001/users/favorites/${medicineId}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/users/favorites/${medicineId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setFavorites(favorites.filter((fav) => fav._id !== medicineId));
