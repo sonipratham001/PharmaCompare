@@ -2,9 +2,11 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-require('dotenv').config(); // Ensure dotenv is configured to load .env file
+const path = require('path');
+require('dotenv').config(); // Load environment variables from .env file
 
 const app = express();
+const port = process.env.PORT || 5001; // Use the environment variable PORT or fallback to 5001
 
 // Middleware
 app.use(cors());
@@ -12,13 +14,12 @@ app.use(bodyParser.json());
 
 // MongoDB Connection
 const mongoURI = process.env.MONGO_URI; // Load MongoDB URI from environment variables
-mongoose.connect(mongoURI)
+mongoose
+    .connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('MongoDB connection error:', err));
 
-// Routes
-app.get('/', (req, res) => res.send('PharmaCompare API is running!'));
-
+// API Routes
 const medicineRoutes = require('./routes/medicineRoutes');
 const pharmacyRoutes = require('./routes/pharmacyRoutes');
 const userRoutes = require('./routes/userRoutes');
@@ -27,11 +28,7 @@ app.use('/medicines', medicineRoutes);
 app.use('/pharmacies', pharmacyRoutes);
 app.use('/users', userRoutes);
 
-const User = require('./models/User');
-const Medicine = require('./models/Medicine');
-const Pharmacy = require('./models/Pharmacy');
-
-// Example test route
+// Example Test Route
 app.get('/test', async (req, res) => {
     try {
         const sampleMedicine = await Medicine.create({
@@ -59,8 +56,18 @@ app.get('/test', async (req, res) => {
     }
 });
 
+// Production Environment Static File Serving
+if (process.env.NODE_ENV === 'production') {
+    // Serve static files from the frontend's build directory
+    app.use(express.static(path.join(__dirname, '../../pharma-compare-frontend/dist')));
+
+    // Serve index.html for any unmatched routes
+    app.get('*', (req, res) => {
+        res.sendFile(path.join(__dirname, '../../pharma-compare-frontend/dist', 'index.html'));
+    });
+}
+
 // Start Server
-const port = process.env.PORT || 5001; // Use the environment variable PORT or fallback to 5001
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
 });

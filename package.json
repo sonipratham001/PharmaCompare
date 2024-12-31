@@ -1,15 +1,27 @@
 {
   "name": "pharmacompare",
   "version": "1.0.0",
+  "description": "",
+  "main": "PharmaCompareBackend/server.js",
   "scripts": {
-    "start": "npm run backend && npm run frontend",  
-    "backend": "npm --prefix pharma-compare-backend start",  
-    "frontend": "npm --prefix pharma-compare-frontend run preview", 
-    "install-all": "npm install --prefix pharma-compare-backend && npm install --prefix pharma-compare-frontend",
-    "build": "npm install --prefix pharma-compare-backend && npm --prefix pharma-compare-frontend run build"  
+    "dev": "NODE_ENV=development nodemon /Users/prathamsoni/Desktop/Code/assignment/PharmaCompareBackend/src/server.js",
+    "start": "NODE_ENV=production node /Users/prathamsoni/Desktop/Code/assignment/PharmaCompareBackend/src/server.js",
+    "build": "npm install && npm install --prefix pharma-compare-frontend && npm run build --prefix pharma-compare-frontend"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
   "dependencies": {
-    "jsonwebtoken": "^9.0.2"
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.9.2"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
 }
