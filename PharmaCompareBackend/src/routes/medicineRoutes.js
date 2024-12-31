@@ -49,6 +49,12 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ error: "All fields are required" });
     }
 
+    // Check if medicine already exists by name (case-insensitive)
+    const existingMedicine = await Medicine.findOne({ name: { $regex: new RegExp("^" + name + "$", "i") } });
+    if (existingMedicine) {
+      return res.status(400).json({ error: "Medicine already exists." });
+    }
+
     // Validate and resolve pharmacy names into ObjectIDs
     const resolvedPharmacies = await Pharmacy.find(
       { name: { $in: pharmacies } },

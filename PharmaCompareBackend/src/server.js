@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const { port, mongoURI } = require('./config');
+require('dotenv').config(); // Ensure dotenv is configured to load .env file
 
 const app = express();
 
@@ -11,6 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // MongoDB Connection
+const mongoURI = process.env.MONGO_URI; // Load MongoDB URI from environment variables
 mongoose.connect(mongoURI)
     .then(() => console.log('Connected to MongoDB'))
     .catch((err) => console.error('MongoDB connection error:', err));
@@ -59,6 +60,7 @@ app.get('/test', async (req, res) => {
 });
 
 // Start Server
+const port = process.env.PORT || 5001; // Use the environment variable PORT or fallback to 5001
 app.listen(port, () => {
     console.log(`Server is running on http://localhost:${port}`);
-}); 
+});
