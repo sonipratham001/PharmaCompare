@@ -17,7 +17,7 @@ const SearchResults = () => {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:5001/medicines?search=${searchQuery}` // No Authorization required
+        `${import.meta.env.VITE_API_URL}/medicines?search=${searchQuery}` // No Authorization required
       );
       setResults(response.data); // Save results
       if (response.data.length > 0) {
@@ -43,7 +43,7 @@ const SearchResults = () => {
         return;
       }
       const response = await axios.post(
-        "http://localhost:5001/users/favorites",
+        `${import.meta.env.VITE_API_URL}/users/favorites`,
         { medicineId },
         {
           headers: { Authorization: `Bearer ${token}` },
