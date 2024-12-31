@@ -13,7 +13,7 @@ const MedicineDetails = () => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`http://localhost:5001/medicines/${id}`);
+      const response = await axios.get(`${import.meta.env.VITE_API_URL}/medicines/${id}`);
       setMedicine(response.data); // Save medicine details
     } catch (err) {
       console.error("Error fetching medicine details:", err.message);
